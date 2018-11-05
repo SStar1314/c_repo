@@ -1,0 +1,3 @@
+# command
+stap  tps.d
+
