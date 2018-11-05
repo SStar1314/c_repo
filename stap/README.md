@@ -26,7 +26,19 @@ stap --download-debuginfo=yes -e 'probe process("/usr/local/lib/libevent-1.4.so.
 stap --download-debuginfo=yes -e 'probe process("/usr/lib/libcblas.so").function("*") { printf ("%s, %s\n", pp(), execname()); } probe timer.s(1) {exit();}'
 stap -e 'probe process("/usr/sbin/rpc.idmapd").library("/usr/local/lib/libevent-1.4.so.2.2.0").plt { printf ("%s, %s\n", pp(), execname()); } probe timer.s(1) {exit();}'  
 
+### procfs
+ stap --vp 05 -e 'probe procfs.read { $value = "abc\n"; }'
+ stap --vp 05 -e 'probe procfs("digoal").read { $value = "abc\n"; }'
+==>
+ll /proc/systemtap/stap_c6373a2dc49ccd7f60f51cb02d421026_1078/
+lsmod|grep stap
 
+ stap --vp 05 -e 'probe procfs("digoal").write { printf("%s", $value) }'
+==> 
+ll  /proc/systemtap/stap_10bf2c7debb5d11ceba890b9aa1f1d97__828/digoal
+echo  1 >   /proc/systemtap/stap_10bf2c7debb5d11ceba890b9aa1f1d97__828/digoal
 
-
+ stap --vp 05 -e 'probe procfs("digoal").read { $value = "abc\n"; } probe procfs("digoal").write { printf("%s", $value) }'  
+==> 
+ll /proc/systemtap/stap_b1c04c3c9a55d7a90f0cb0b9634d6e85_1585/digoal
 
