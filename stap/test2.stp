@@ -1,0 +1,14 @@
+global var  
+probe begin {  
+  var <<< 12  
+  var <<< 12  
+  var <<< 33  
+  var <<< 44  
+  var <<< 55  
+  var <<< 16  
+  printf("count, min, max, avg, sum\n")  
+  printf("%d, %d, %d, %d, %d\n", @count(var), @min(var), @max(var), @avg(var), @sum(var))  
+  //print(@hist_linear(var,0,100,10))  
+  print(@hist_log(var))  
+  exit()  
+}  

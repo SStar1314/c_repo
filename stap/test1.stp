@@ -1,0 +1,5 @@
+probe begin {  
+  var = "1"."9"  
+  printf("%s\n", var)  
+  exit()  
+} 

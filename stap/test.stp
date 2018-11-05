@@ -1,0 +1,8 @@
+function fun:long() %{  
+  float a=1.9;  
+  STAP_RETVALUE=a;  
+%}  
+probe begin {  
+  printf("%d\n", fun())  
+  exit()  
+}  
